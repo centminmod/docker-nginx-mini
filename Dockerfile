@@ -20,4 +20,4 @@ RUN mkdir -p /usr/share/nginx/ssl && cd /usr/share/nginx/ssl; \
     openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt;
 
 EXPOSE 80 443
-CMD ["/usr/sbin/init"]
+CMD ["/bin/bash"]

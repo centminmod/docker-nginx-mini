@@ -24,6 +24,7 @@ RUN mkdir -p /usr/share/nginx/ssl && cd /usr/share/nginx/ssl && \
 
 EXPOSE 80 443
 
-RUN easy_install supervisor && easy_install supervisor-stdout
+RUN easy_install supervisor 
+RUN easy_install supervisor-stdout
 RUN chmod +x ~/np-start
 CMD ["~/np-start"]

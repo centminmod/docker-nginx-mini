@@ -8,7 +8,7 @@ For database connection you may read:
 
 #### Build from GitHub
     git clone https://github.com/tropicloud/np-stack.git && cd np-stack
-    docker build --rm -t tropicloud/np-stack .
+    docker build -t tropicloud/np-stack .
     
 
 or

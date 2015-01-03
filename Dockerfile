@@ -2,8 +2,8 @@ FROM centos:centos7
 MAINTAINER "Tropicloud" <admin@tropicloud.net>
 
 ADD conf /etc/np-stack/
-ADD np-start ~/np-start
-RUN chmod +x ~/np-start
+ADD np-start /np-start
+RUN chmod +x /np-start
 
 RUN cat /etc/np-stack/yum/nginx.repo > /etc/yum.repos.d/nginx.repo && \
     rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm && \
@@ -26,4 +26,4 @@ RUN mkdir -p /usr/share/nginx/ssl && cd /usr/share/nginx/ssl && \
     openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt 
 
 EXPOSE 80 443
-CMD ["~/np-start"]
+CMD ["/np-start"]

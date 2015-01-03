@@ -17,7 +17,7 @@ RUN cat /etc/np-stack/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf
 RUN mkdir -p /usr/share/nginx/ssl && cd /usr/share/nginx/ssl; \
     openssl req -nodes -sha256 -newkey rsa:2048 -keyout localhost.key -out localhost.csr -config /etc/np-stack/nginx/openssl.conf -batch; \
     openssl rsa -in localhost.key -out localhost.key; \
-    openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt; \
+    openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt;
 
 EXPOSE 80 443
 CMD ["/usr/sbin/init"]

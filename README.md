@@ -20,12 +20,14 @@ or
 then
 
 #### Run the Docker image
-    docker run -p 80:80 -p 443:443 -v /usr/share/nginx/html -d tropicloud/np-stack    
+    docker run -p 80:80 -p 443:443 \
+    -v /usr/share/nginx/html \
+    -d tropicloud/np-stack 
     
 
 Navigate to `http://<docker-host-ip>/` to check the installation.
 
-#### Advanced Configuration
+#### Example Configuration
 Make sure to build from GitHub or to include your own config files.
 
     docker run -p 80:80 -p 443:443 \
@@ -36,4 +38,4 @@ Make sure to build from GitHub or to include your own config files.
     -v $(pwd)/conf/php/php-fpm.conf:/etc/php-fpm.d/www.conf \
     -d tropicloud/np-stack
     
-    
+   

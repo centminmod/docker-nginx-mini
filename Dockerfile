@@ -13,12 +13,15 @@ RUN cat /etc/np-stack/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf
     cat /etc/np-stack/nginx/nginx.conf > /etc/nginx/nginx.conf && \
     cat /etc/np-stack/php/php-fpm.conf > /etc/php-fpm.d/www.conf && \
     cat /etc/np-stack/html/index.html > /usr/share/nginx/html/index.html && \
-    cat /etc/np-stack/html/info.php > /usr/share/nginx/html/info.php;
+    cat /etc/np-stack/html/info.php > /usr/share/nginx/html/info.php && \
+    cat /etc/np-stack/supervisord/supervisord.conf > /etc/supervisord.conf
 
 RUN mkdir -p /usr/share/nginx/ssl && cd /usr/share/nginx/ssl && \
     openssl req -nodes -sha256 -newkey rsa:2048 -keyout localhost.key -out localhost.csr -config /etc/np-stack/nginx/openssl.conf -batch && \
     openssl rsa -in localhost.key -out localhost.key && \
-    openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt;
+    openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt 
 
 EXPOSE 80 443
-CMD ["/bin/bash"]
+
+RUN chmod +x /etc/np-stack/np-start
+CMD ["/etc/np-stack/np-start"]

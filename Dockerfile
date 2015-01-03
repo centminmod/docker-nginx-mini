@@ -2,11 +2,12 @@ FROM centos:centos7
 MAINTAINER "Tropicloud" <admin@tropicloud.net>
 
 ADD conf /etc/np-stack/
+ADD np-start ~/np-start
 
 RUN cat /etc/np-stack/yum/nginx.repo > /etc/yum.repos.d/nginx.repo && \
     rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm && \
     rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
-    yum install -y nginx mariadb python-setuptools && easy_install supervisor && easy_install supervisor-stdout && \
+    yum install -y nginx mariadb python-setuptools && \
     yum install -y php-fpm php-common php-opcache php-pecl-apcu php-cli php-pear php-pdo php-mysqlnd php-pgsql php-pecl-mongo php-pecl-sqlite php-pecl-memcache php-pecl-memcached php-gd php-mbstring php-mcrypt php-xml --enablerepo=remi,remi-php56
 
 RUN cat /etc/np-stack/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf && \
@@ -23,5 +24,6 @@ RUN mkdir -p /usr/share/nginx/ssl && cd /usr/share/nginx/ssl && \
 
 EXPOSE 80 443
 
-RUN chmod +x /etc/np-stack/np-start
-CMD ["/etc/np-stack/np-start"]
+RUN easy_install supervisor && easy_install supervisor-stdout
+RUN chmod +x ~/np-start
+CMD ["~/np-start"]

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# ------------------------
+# Tropicloud NP-STACK
+# ------------------------
+# @author: Guigo (guigo.pw)
+# version: 0.2
+# ------------------------
+
+nps='/usr/local/nps'
+
+# ------------------------
+# NP-STACK Functions
+# ------------------------
+
+for f in $nps/func/*; do . $f; done
+
+  if [[  $1 == 'setup'  ]]; then nps_setup
+elif [[  $1 == 'start'  ]]; then nps_start
+
+# ------------------------
+# NP-STACK Commands
+# ------------------------
+
+else echo "
+----------------------------------------------------
+  NP-STACK  - www.tropicloud.net
+----------------------------------------------------  
+
+  HOW TO USE:
+  
+  nps start				# Start NGINX + PHP-FPM
+
+----------------------------------------------------  
+
+"
+fi

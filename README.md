@@ -1,5 +1,5 @@
-NP-STACK
-==============
+<img src="http://assets.tropicloud.net/wpstack/logo-npstack-light.png" width="240" border="0" style="display: block; max-width:100%;">
+
 NGINX + PHP-FPM web stack for Docker.  
 For database connection you may read:
 

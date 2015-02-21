@@ -13,7 +13,7 @@ nps='/usr/local/nps'
 # NP-STACK Functions
 # ------------------------
 
-for f in $nps/func/*; do . $f; done
+for f in $nps/bin/*; do . $f; done
 
   if [[  $1 == 'setup'  ]]; then nps_setup
 elif [[  $1 == 'start'  ]]; then nps_start

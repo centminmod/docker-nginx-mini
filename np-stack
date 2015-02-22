@@ -21,6 +21,7 @@ elif [[  $1 == 'stop'  ]];     then nps_stop $@
 elif [[  $1 == 'restart'  ]];  then nps_restart $@
 elif [[  $1 == 'reload'  ]];   then nps_reload $@
 elif [[  $1 == 'status'  ]];   then nps_status $@
+elif [[  $1 == 'log'  ]];      then nps_log $@
 
 # ------------------------------------
 # NP-STACK Commands
@@ -39,9 +40,10 @@ else echo "
   nps stop <name>           # Stop a specific process
   nps restart               # Restart all processes
   nps restart <name>        # Restart a specific process
-  nps reload                # Reload all processes
-  nps status <name>         # Get status for all processes
+  nps status                # Get status for all processes
   nps status <name>         # Get status for a single process
+  nps log                   # Display last 1600 *bytes* of main log file
+  nps reload                # Restart Supervisord
 
 ----------------------------------------------------  
 

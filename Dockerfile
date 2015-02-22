@@ -8,4 +8,4 @@ RUN chmod +x /usr/local/nps/np-stack && \
 
 EXPOSE 80 443
 ENTRYPOINT ["/bin/bash"]
-CMD ["nps","start"]
+CMD ["nps","start", "0"]

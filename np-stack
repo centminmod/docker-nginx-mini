@@ -1,26 +1,30 @@
 #!/usr/bin/env bash
 
-# ------------------------
+# ------------------------------------
 # Tropicloud NP-STACK
-# ------------------------
-# @author: Guigo (guigo.pw)
-# version: 0.2
-# ------------------------
+# ------------------------------------
+# @author: Guigo2k (hello@guigo.pw)
+# version: 0.3
+# ------------------------------------
 
 nps='/usr/local/nps'
 
-# ------------------------
+# ------------------------------------
 # NP-STACK Functions
-# ------------------------
+# ------------------------------------
 
 for f in $nps/bin/*; do . $f; done
 
-  if [[  $1 == 'setup'  ]]; then nps_setup
-elif [[  $1 == 'start'  ]]; then nps_start
+  if [[  $1 == 'setup'  ]];    then nps_setup $@
+elif [[  $1 == 'start'  ]];    then nps_start $@
+elif [[  $1 == 'stop'  ]];     then nps_stop $@
+elif [[  $1 == 'restart'  ]];  then nps_restart $@
+elif [[  $1 == 'reload'  ]];   then nps_reload $@
+elif [[  $1 == 'status'  ]];   then nps_status $@
 
-# ------------------------
+# ------------------------------------
 # NP-STACK Commands
-# ------------------------
+# ------------------------------------
 
 else echo "
 ----------------------------------------------------
@@ -29,7 +33,15 @@ else echo "
 
   HOW TO USE:
   
-  nps start				# Start NGINX + PHP-FPM
+  nps start                 # Start all processes
+  nps start <name>          # Start a specific process
+  nps stop                  # Stop all processes
+  nps stop <name>           # Stop a specific process
+  nps restart               # Restart all processes
+  nps restart <name>        # Restart a specific process
+  nps reload                # Reload all processes
+  nps status <name>         # Get status for all processes
+  nps status <name>         # Get status for a single process
 
 ----------------------------------------------------  
 

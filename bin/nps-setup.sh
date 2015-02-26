@@ -66,6 +66,8 @@ function nps_setup() {
 
 	mkdir -p /app/html
 	mkdir -p /app/ssl
+	mkdir -p /var/cache/nginx/
+	mkdir -p /var/cache/nginx/client_temp
 			
 	cat $nps/conf/supervisor/supervisord.conf > /etc/supervisord.conf
 	cat $nps/conf/nginx/default.conf > /etc/nginx/conf.d/default.conf

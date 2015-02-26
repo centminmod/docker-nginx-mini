@@ -2,7 +2,7 @@ Modified [https://github.com/tropicloud/np-stack](https://github.com/tropicloud/
 
 #### Build from GitHub
     git clone https://github.com/centminmod/docker-nginx-mini.git
-    docker build -t centminmod/docker-nginx-mini np-stack
+    docker build -t centminmod/docker-nginx-mini docker-nginx-mini
     
 
 or

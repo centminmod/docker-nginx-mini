@@ -68,15 +68,51 @@ function nps_setup() {
 	mkdir -p /app/ssl
 	mkdir -p /var/cache/nginx/
 	mkdir -p /var/cache/nginx/client_temp
+	touch /var/log/php-fpm/www-php.error.log
+	chmod 0666 /var/log/php-fpm/www-php.error.log
 			
 	cat $nps/conf/supervisor/supervisord.conf > /etc/supervisord.conf
 	cat $nps/conf/nginx/default.conf > /etc/nginx/conf.d/default.conf
 	cat $nps/conf/nginx/defaultssl.conf > /etc/nginx/conf.d/defaultssl.conf
 	cat $nps/conf/php/php-fpm.conf > /etc/php-fpm.d/www.conf
 	cat $nps/conf/nginx/nginx.conf > /etc/nginx/nginx.conf
+	cat $nps/conf/nginx/fastcgi_params > /etc/nginx/fastcgi_params
 	cat $nps/conf/html/index.html > /app/html/index.html
 	\cp -f $nps/conf/html/cmlogo.png /app/html/
 	cat $nps/conf/html/info.php > /app/html/info.php
+
+	PHPINICUSTOM='/etc/php.d/00_customphp.ini'
+	CURLINICUSTOM='/etc/php.d/00_curlcainfo.ini'
+
+	touch $PHPINICUSTOM
+	touch $CURLINICUSTOM
+
+    echo "max_execution_time = 60" >> ${PHPINICUSTOM}
+    echo "short_open_tag = On" >> ${PHPINICUSTOM}
+    echo "realpath_cache_size = 8192k" >> ${PHPINICUSTOM}
+    echo "realpath_cache_ttl = 600" >> ${PHPINICUSTOM}
+    echo "upload_max_filesize = 20M" >> ${PHPINICUSTOM}
+    echo "memory_limit = 128M" >> ${PHPINICUSTOM}
+    echo "post_max_size = 20M" >> ${PHPINICUSTOM}
+    echo "expose_php = Off" >> ${PHPINICUSTOM}
+    echo "mail.add_x_header = Off" >> ${PHPINICUSTOM}
+    echo "max_input_nesting_level = 128" >> ${PHPINICUSTOM}
+    echo "max_input_vars = 4000" >> ${PHPINICUSTOM}
+    echo "mysqlnd.net_cmd_buffer_size = 16384" >> ${PHPINICUSTOM}
+
+    if [[ "$(date +"%Z")" = 'EST' ]]; then
+        echo "date.timezone = Australia/Brisbane" >> ${PHPINICUSTOM}
+    else
+        echo "date.timezone = UTC" >> ${PHPINICUSTOM}
+    fi
+
+    if [ ! -f /etc/ssl/certs/cacert.pem ]; then
+        wget -q -O /etc/ssl/certs/cacert.pem http://curl.haxx.se/ca/cacert.pem
+        echo "curl.cainfo = '/etc/ssl/certs/cacert.pem'" > ${CURLINICUSTOM}
+    else
+        wget -q -O /etc/ssl/certs/cacert.pem http://curl.haxx.se/ca/cacert.pem
+        echo "curl.cainfo = '/etc/ssl/certs/cacert.pem'" > ${CURLINICUSTOM}
+    fi
 
 	# ------------------------
 	# SSL CERT.

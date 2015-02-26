@@ -40,6 +40,7 @@ Make sure to build from GitHub or to include your own config files.
     docker run -p 80:80 -p 443:443 \
     -v /app/html \
     -v $(pwd)/conf/nginx/default.conf:/etc/nginx/default.conf \
+    -v $(pwd)/conf/nginx/defaultssl.conf:/etc/nginx/defaultssl.conf \
     -v $(pwd)/conf/nginx/nginx.conf:/etc/nginx/nginx.conf \
     -v $(pwd)/conf/php/php-fpm.conf:/etc/php-fpm.d/www.conf \
     -d centminmod/docker-nginx-mini

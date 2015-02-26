@@ -20,11 +20,11 @@ Navigate to `http://<docker-host-ip>/` to check the installation.
 
 or if you already have server on local docker host port 80/443, map local docker host port to 81/444
 
-    docker run -p 81:80 -p 444:443 -d centminmod/docker-nginx-mini
+    docker run -p 81:80 -p 444:443 -d -t centminmod/docker-nginx-mini
 
 or give the docker container a unique name i.e. --name ngx1
 
-    docker run --name ngx1 -p 81:80 -p 444:443 -d centminmod/docker-nginx-mini
+    docker run --name ngx1 -p 81:80 -p 444:443 -d -t centminmod/docker-nginx-mini
 
 to login into the docker container named ngx1
 

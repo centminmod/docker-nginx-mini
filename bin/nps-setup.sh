@@ -19,7 +19,7 @@ function nps_setup() {
 	# ------------------------
 	
 	## Dependecies
-	yum install -y nano which hostname bc wget zip python-setuptools
+	yum install -y nano which hostname bc wget zip python-setuptools bash-completion mlocate
 
 	## NGINX + MariaDB Client
 	yum install -y nginx mariadb
@@ -53,6 +53,7 @@ function nps_setup() {
 	
 	## WP-CLI
 	wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+	cp -a /usr/local/bin/wp /usr/bin/wp
 	chmod +x /usr/local/bin/wp
 	
 	## JQ 

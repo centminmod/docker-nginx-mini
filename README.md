@@ -44,4 +44,17 @@ Make sure to build from GitHub or to include your own config files.
     -v $(pwd)/conf/nginx/nginx.conf:/etc/nginx/nginx.conf \
     -v $(pwd)/conf/php/php-fpm.conf:/etc/php-fpm.d/www.conf \
     -d centminmod/docker-nginx-mini
+
+### How to use nps command inside Docker Nginx Mini container
+  
+    nps start                 # Start all processes
+    nps start <name>          # Start a specific process
+    nps stop                  # Stop all processes
+    nps stop <name>           # Stop a specific process
+    nps restart               # Restart all processes
+    nps restart <name>        # Restart a specific process
+    nps status                # Get status for all processes
+    nps status <name>         # Get status for a single process
+    nps log                   # Display last 1600 *bytes* of main log file
+    nps reload                # Restart Supervisord    
     

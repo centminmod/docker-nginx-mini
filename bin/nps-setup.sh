@@ -72,6 +72,7 @@ function nps_setup() {
 	cat $nps/conf/php/php-fpm.conf > /etc/php-fpm.d/www.conf
 	cat $nps/conf/nginx/nginx.conf > /etc/nginx/nginx.conf
 	cat $nps/conf/html/index.html > /app/html/index.html
+	\cp -f $nps/conf/html/cmlogo.png /app/html/
 	cat $nps/conf/html/info.php > /app/html/info.php
 
 	# ------------------------

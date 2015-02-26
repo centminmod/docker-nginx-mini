@@ -8,7 +8,8 @@ function nps_setup() {
 	cat $nps/conf/yum/nginx.repo > /etc/yum.repos.d/nginx.repo
 	
 	## EPEL
-	rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+	# rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+	yum -y install epel-release
 	
 	## REMI
 	rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
@@ -18,7 +19,7 @@ function nps_setup() {
 	# ------------------------
 	
 	## Dependecies
-	yum install -y nano wget zip python-setuptools
+	yum install -y nano which hostname bc wget zip python-setuptools
 
 	## NGINX + MariaDB Client
 	yum install -y nginx mariadb
@@ -40,6 +41,11 @@ function nps_setup() {
 	               php-pecl-memcached \
 	               php-gd php-mbstring \
 	               php-mcrypt php-xml
+
+	## Cleanup Docker Image size
+	yum -y update
+	yum clean all
+	rm -rf /var/cache/*
 	               
 	## Supervisor
 	easy_install supervisor
@@ -62,6 +68,7 @@ function nps_setup() {
 			
 	cat $nps/conf/supervisor/supervisord.conf > /etc/supervisord.conf
 	cat $nps/conf/nginx/default.conf > /etc/nginx/conf.d/default.conf
+	cat $nps/conf/nginx/defaultssl.conf > /etc/nginx/conf.d/defaultssl.conf
 	cat $nps/conf/php/php-fpm.conf > /etc/php-fpm.d/www.conf
 	cat $nps/conf/nginx/nginx.conf > /etc/nginx/nginx.conf
 	cat $nps/conf/html/index.html > /app/html/index.html
@@ -74,9 +81,10 @@ function nps_setup() {
 	cd /app/ssl
 	
 	cat $nps/conf/nginx/openssl.conf > openssl.conf
+	sed -i "s/EHOSTNAME/$(hostname)/" openssl.conf
 	openssl req -nodes -sha256 -newkey rsa:2048 -keyout app.key -out app.csr -config openssl.conf -batch
 	openssl rsa -in app.key -out app.key
-	openssl x509 -req -days 365 -in app.csr -signkey app.key -out app.crt	
+	openssl x509 -req -days 365 -sha256 -in app.csr -signkey app.key -out app.crt	
 	rm -f openssl.conf
 	
 }
